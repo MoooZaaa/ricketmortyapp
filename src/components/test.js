@@ -3,23 +3,23 @@ import React, { useEffect, useState } from "react";
 function TestComponents() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [character, setCharacter] = useState(null);
-  var i = 1
-  
+  const [characters, setCharacters] = useState([]);
+
   useEffect(() => {
-    fetch("https://rickandmortyapi.com/api/character/"+i)
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          setIsLoaded(true);
-          setCharacter(result);
-        },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        }
-      );
-  }, []); // [] to execute only once on mount
+    const fetchCharacters = async () => {
+      try {
+        const response = await fetch("https://rickandmortyapi.com/api/character/");
+        const data = await response.json();
+        setCharacters(data.results);
+        setIsLoaded(true);
+      } catch (error) {
+        setError(error);
+        setIsLoaded(true);
+      }
+    };
+
+    fetchCharacters();
+  }, []);
 
   if (error) {
     return <div>Erreur : {error.message}</div>;
@@ -27,16 +27,21 @@ function TestComponents() {
     return <div>Chargement...</div>;
   } else {
     return (
-    <div class="card" style={{width: 18 + 'em'}}>
-      <img src={character.image} class="card-img-top" alt="..."/>
-      <div class="card-body">
-        <h5 class="card-title">{character.name}</h5>
-        <p class="card-text">{character.location.name}</p>
-        <a href="#" class="btn btn-dark">Go somewhere</a>
+      <div>
+        {characters.map((character, index) => (
+          <div key={index} className="card" style={{ width: "18em", margin: "1em" }}>
+            <img src={character.image} className="card-img-top" alt="..." />
+            <div className="card-body">
+              <h5 className="card-title">{character.name}</h5>
+              <p className="card-text">{character.location.name}</p>
+              <a href="#" className="btn btn-dark">
+                Détails
+              </a>
+            </div>
+          </div>
+        ))}
       </div>
-    </div>
-    )
-    var i = i + 1
+    );
   }
 }
 
