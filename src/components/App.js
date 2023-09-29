@@ -1,3 +1,4 @@
+import { Carousel } from 'bootstrap';
 import '../styles/App.css';
 
 function App() {
