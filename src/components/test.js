@@ -3,15 +3,15 @@ import React, { useEffect, useState } from "react";
 function TestComponents() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [episode, setEpisode] = useState(null);
+  const [character, setcharacter] = useState(null);
 
   useEffect(() => {
-    fetch("https://rickandmortyapi.com/api/episode/1")
+    fetch("https://rickandmortyapi.com/api/character/1")
       .then(res => res.json())
       .then(
         (result) => {
           setIsLoaded(true);
-          setEpisode(result);
+          setcharacter(result);
         },
         (error) => {
           setIsLoaded(true);
@@ -26,20 +26,8 @@ function TestComponents() {
     return <div>Chargement...</div>;
   } else {
     return (
-      <div>
-        <h1>{episode.name}</h1>
-        <p>Date de diffusion : {episode.air_date}</p>
-        <p>Épisode : {episode.episode}</p>
-        <h2>Personnages :</h2>
-        <ul>
-          {episode.characters.map((charUrl, index) => (
-            <li key={index}>
-              <a href={charUrl} target="_blank" rel="noopener noreferrer">
-                Personnage {index + 1}
-              </a>
-            </li>
-          ))}
-        </ul>
+      <div class="text-danger">
+        <p>Name : {character.name}</p>
       </div>
     );
   }
