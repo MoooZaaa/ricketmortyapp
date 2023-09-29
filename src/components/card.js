@@ -1,4 +1,5 @@
 import React from 'react'
+<<<<<<< HEAD
 
 function Card() {
   return (
@@ -34,3 +35,14 @@ function Card() {
 }
 
 export default Card
+=======
+import TestComponents from './test'
+
+export default function Card() {
+  return (
+    <div className='card-list'>
+       
+    </div>
+  )
+}
+>>>>>>> 62a4541e0193df06f7f55a31a4fd73817a03257a
