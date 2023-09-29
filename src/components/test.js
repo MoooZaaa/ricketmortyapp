@@ -3,22 +3,23 @@ import React, { useEffect, useState } from "react";
 function TestComponents() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [character, setcharacter] = useState(null);
-
+  const [character, setCharacter] = useState(null);
+  var i = 1
+  
   useEffect(() => {
-    fetch("https://rickandmortyapi.com/api/character/1")
-      .then(res => res.json())
+    fetch("https://rickandmortyapi.com/api/character/"+i)
+      .then((res) => res.json())
       .then(
         (result) => {
           setIsLoaded(true);
-          setcharacter(result);
+          setCharacter(result);
         },
         (error) => {
           setIsLoaded(true);
           setError(error);
         }
       );
-  }, []); // [] pour exécuter une seule fois au montage
+  }, []); // [] to execute only once on mount
 
   if (error) {
     return <div>Erreur : {error.message}</div>;
@@ -35,6 +36,7 @@ function TestComponents() {
       </div>
     </div>
     )
+    var i = i + 1
   }
 }
 
